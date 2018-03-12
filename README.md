@@ -13,7 +13,8 @@
     你已经配置好了本地的Gradle环境变量。至于Jar的引用，则不再赘述。而添加aar的方法则如下：
     Gradle需要添加的代码 
      
-   ``` repositories {  
+   ``` 
+   repositories {  
         flatDir {  
             dirs 'libs'  
         }  
