@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(JNIUtils.getStringFromC());
+                    mTextMessage.setText(JNIUtils.getStringFromC()); // 调用C++代码
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(JNIUtils.getStringFromC());

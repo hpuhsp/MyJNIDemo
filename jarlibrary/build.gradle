@@ -1,0 +1,126 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 26
+    // 打包Jar项目配置：删除：applicationId,versionCode,versionName
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 24
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+
+/**
+ * ==============打Jar包的配置知识梳理==========
+ *
+ */
+
+/**
+ * 普通生成Jar包的方式-->最基本的
+ */
+//task makeJar(type: Copy) {
+//    //删除之前的旧jar包
+//    delete 'build/libs/sdk.jar'
+//    //从该目录取出jar包
+//    from('build/intermediates/bundles/release/')
+//    //将jar输出的目录
+//    into('build/libs/')
+//    //将classes.jar放入build/libs/目录下
+//    include('classes.jar')
+//    //自定义jar的名字
+//    rename('classes.jar', 'sdk.jar')
+//}
+////使用makeJar命令执行该task
+//makeJar.dependsOn(build)
+/**
+ * 第二种实现方式--->第三种方式的简单实现，个人常用
+ */
+//task deleteOldJar(type: Delete) {
+//    //删除存在的
+//    delete 'build/libs/hello.jar'
+//}
+//
+//task makeJar(type: org.gradle.api.tasks.bundling.Jar) {
+//    //指定生成的jar名
+//    baseName 'hello'
+//
+//    //从哪里打包class文件
+//    //com/test为包名目录
+//    from('build/intermediates/classes/debug/com/reesehu/jarlibrary/')
+//
+//    //jar包的目录结构(文件处于com/test目录下)
+//    //生成的jar包没有包名
+//    into('com/reesehu/jarlibrary')
+//
+//    //去掉不需要打包的目录和文件
+//    exclude('BuildConfig.class', 'R.class')
+//
+//    //去掉R$开头的文件
+//    exclude { it.name.startsWith('R$')}
+//}
+//makeJar.dependsOn(deleteOldJar, build)
+
+/**
+ * 第三种方式--->普通生成Jar包自定义类名jar生成方式，可以去除资源
+ * 关键在于可以自定义类名jar和资源文件的配置(较完整的配置)
+ */
+task makeJar(dependsOn: ['compileReleaseJavaWithJavac'], type: Jar) {
+    appendix = "demo"
+    baseName = "androidJar"
+    version = "1.0.0"
+    classifier = "release"
+    //后缀名
+    extension = "jar"
+    //最终的 Jar 包名，如果没设置，默认为 [baseName]-[appendix]-[version]-[classifier].  [extension]
+    //archiveName = "androidJar"
+    //需打包的资源所在的路径集
+    def srcClassDir = [project.buildDir.absolutePath + "/intermediates/classes/release"]
+    //初始化资源路径集
+    from srcClassDir
+    //去除路径集下部分的资源
+    exclude "com/dgcredit/libs/BuildConfig.class"
+    exclude "com/dgcredit/libs/BuildConfig\$*.class"
+    exclude "**/R.class"
+    exclude "**/R\$*.class"
+    //只导入资源路径集下的部分资源
+    include "com/dgcredit/libs/**/*.class"
+    //注: exclude include 支持可变长参数
+}
+//使用makeJar命令执行该task
+makeJar.dependsOn(build)
+
+// 混淆后的jar生成方式，可以去除资源
+//task makeGuardJar(type: ProGuardTask) {
+//    // 未混淆的jar
+//    injars 'build/intermediates/bundles/default/classes.jar'
+//    // 混淆后的jar路径
+//    outjars 'build/libs/androidJar.jar'
+//    // 具体需要keep住的类
+//    configuration 'proguard-rules.pro'
+//}
+//
+////使用makeGuardJar命令执行该task
+//makeGuardJar.dependsOn(build)
+
+
