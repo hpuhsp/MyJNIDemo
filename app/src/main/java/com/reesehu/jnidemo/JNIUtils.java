@@ -3,7 +3,7 @@ package com.reesehu.jnidemo;
 /**
  * Function:
  * <br/>
- * Describe:
+ * Describe: 测试native方法
  * <br/>
  * Author: reese on 2018/3/8.
  * <br/>
@@ -13,8 +13,10 @@ package com.reesehu.jnidemo;
 public class JNIUtils {
     public JNIUtils() {
     }
+
     static {
         System.loadLibrary("hello");
     }
+
     public static native String getStringFromC();
 }
