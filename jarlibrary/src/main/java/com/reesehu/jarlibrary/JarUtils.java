@@ -12,6 +12,15 @@ package com.reesehu.jarlibrary;
 
 public class JarUtils {
     public static String showJarLog() {
-        return "测试Jar--->返回的数据";
+        return "测试Jar--->重新更新后的数据！！！";
+    }
+
+    /**
+     * 测试Jar包工具类
+     *
+     * @return
+     */
+    public static String showMoreAuthorInfo() {
+        return "上海精酿信息科技有限公司";
     }
 }

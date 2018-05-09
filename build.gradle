@@ -1,14 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -25,3 +24,48 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+/**
+ * 下面是一些语法练习
+ */
+//// 其实是groovy代码实现的一个闭包
+//task helloworld << {
+//    println("Hello World!")
+//}
+//task copyFile(type: Copy) {
+//    from 'xml'
+//
+//    into 'desination'
+//}
+//task hellowWorld2 {
+//    doFirst {
+//        println("DoFirst!!!")
+//    }
+//
+//    doLast {
+//        println("Hello World222!")
+//    }
+//}
+//// 显示TaskContainer
+//task showTasks {
+//    println("---class---->" + tasks.class)
+//    println("---size---->" + tasks.size())
+//}
+//// 重载TaskContainer的onCreate()方法
+//tasks.create(name: 'helloTasks') << {
+//    println("helloTasks")
+//}
+//// task之间的依赖关系
+//task TaskB(dependsOn: helloTasks) {
+//    description = "this is a property test!"
+//    doLast {
+//        println("---TaskB-->" + description)
+//    }
+//}
+//// 重新配置已有task
+//TaskB {
+//    description = "this is a new  property test!"
+//}
+//TaskB.configure {
+//    description = "this is an other property test!"
+//}
+// Gradle在执行Task时分为两个阶段，首先是配置阶段，然后才是实际执行阶段。所以在执行TaskB之前，Gradle会扫描整个build.gradle文档

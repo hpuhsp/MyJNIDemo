@@ -87,24 +87,24 @@ dependencies {
  */
 task makeJar(dependsOn: ['compileReleaseJavaWithJavac'], type: Jar) {
     appendix = "demo"
-    baseName = "androidJar"
+    baseName = "hello"
     version = "1.0.0"
     classifier = "release"
     //后缀名
     extension = "jar"
     //最终的 Jar 包名，如果没设置，默认为 [baseName]-[appendix]-[version]-[classifier].  [extension]
-    //archiveName = "androidJar"
-    //需打包的资源所在的路径集
+    archiveName = "hello.jar"
+    //需打包的资源所在的路径集、
     def srcClassDir = [project.buildDir.absolutePath + "/intermediates/classes/release"]
     //初始化资源路径集
     from srcClassDir
-    //去除路径集下部分的资源
-    exclude "com/dgcredit/libs/BuildConfig.class"
-    exclude "com/dgcredit/libs/BuildConfig\$*.class"
+    //去除路径集下部分的资源(注意：包路径的设置)
+    exclude "com/reesehu/jarlibrary/BuildConfig.class"
+    exclude "com/reesehu/jarlibrary/BuildConfig\$*.class"
     exclude "**/R.class"
     exclude "**/R\$*.class"
     //只导入资源路径集下的部分资源
-    include "com/dgcredit/libs/**/*.class"
+    include "com/reesehu/jarlibrary/**/*.class"
     //注: exclude include 支持可变长参数
 }
 //使用makeJar命令执行该task
