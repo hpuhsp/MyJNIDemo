@@ -12,7 +12,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -110,7 +115,7 @@ task makeJar(dependsOn: ['compileReleaseJavaWithJavac'], type: Jar) {
 //使用makeJar命令执行该task
 makeJar.dependsOn(build)
 
-// 混淆后的jar生成方式，可以去除资源
+// ==============第四种方式===============>混淆后的jar生成方式，可以去除资源
 //task makeGuardJar(type: ProGuardTask) {
 //    // 未混淆的jar
 //    injars 'build/intermediates/bundles/default/classes.jar'
@@ -122,5 +127,3 @@ makeJar.dependsOn(build)
 //
 ////使用makeGuardJar命令执行该task
 //makeGuardJar.dependsOn(build)
-
-
