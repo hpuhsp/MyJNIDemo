@@ -1,4 +1,4 @@
-package com.reesehu.jarlibrary;
+package com.reesehu.aarlibrary;
 
 /**
  * Function:
@@ -10,7 +10,7 @@ package com.reesehu.jarlibrary;
  * Email: reese@jiuhuar.com
  */
 
-public class JarUtils {
+public class AARUtils {
     public static String showJarLog() {
         return "测试Jar--->重新更新后的数据！！！";
     }
@@ -21,6 +21,6 @@ public class JarUtils {
      * @return
      */
     public static String showMoreAuthorInfo() {
-        return "上海光途酒业有限公司";
+        return "测试远程依赖库+CompressHelper";
     }
 }

@@ -23,7 +23,7 @@ android {
         // 限定兼容ABI
         ndk {
             // moduleName "hello"       //生成的so文件名字，调用C程序的代码中会用到该名字
-            abiFilters "arm64-v8a" //输出指定三种平台下的so库
+            abiFilters "arm64-v8a"//输出指定三种平台下的so库
         }
     }
     buildTypes {
@@ -33,6 +33,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
