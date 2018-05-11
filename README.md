@@ -92,7 +92,7 @@
   
   其次需要特别注意Bintray账号选择注册个人开源账号。采用30天并未激活的企业账号时会出现一些上传失败的各种问题.所以特别提醒：
   
-  ![这还能弄错吗？](https://github.com/hpuhsp/MyJNIDemo/tree/develop/Screenshots/702C0BF45444.png)
+  ![这还能弄错吗？](https://github.com/hpuhsp/MyJNIDemo/raw/master/Screenshots/702C0BF45444.png)
 
 > 关于上传本地AAR到JCenter可参考[博客文章](https://blog.csdn.net/u014620028/article/details/78406167),个人觉得这个真的是手把手教学。
 不清楚？再来一篇：[鸿洋的文章](https://blog.csdn.net/lmj623565791/article/details/51148825)
