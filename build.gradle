@@ -11,6 +11,13 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        //bintray 插件
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        //android-maven-gradle-plugin:1.3版本有bug，网上很多例子用的这个版本，编译的时候可能会出错，改一下版本就好了
+
+        classpath 'com.novoda:bintray-release:0.8.1'
+
     }
 }
 
@@ -27,6 +34,14 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+// 如果moudle中的工具上有中文注释，还需要加上
+tasks.withType(Javadoc) {
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        links "http://docs.oracle.com/javase/7/docs/api"
+    }
 }
 /**
  * 下面是一些语法练习

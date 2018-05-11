@@ -69,9 +69,34 @@
 ```
    完毕！！！
    
-  - 依赖了三方库的AAR引入方式上传至远程Maven仓库 (下一篇)
+  - 依赖了三方库的AAR引入方式上传至远程Maven仓库
+  
+  以[bintray-release](https://github.com/novoda/bintray-release)工具进行上传到Bintray仓库，引入工具需要配置的方式，直接
+  点击[传送门](https://github.com/novoda/bintray-release)了解一下即可，这里不再赘述。此处着重记录一些基本的配置和遇到的问题。
+  首先，是publish的闭包配置，示例如下：
+  ```
+  // 使用bintray-release 上传至bintray,下面为publish闭包配置
+  publish {
+         userOrg = 'ternencehu' // bintray用户名
+         repoName = 'brewer'
+         groupId = 'com.sharepeng'
+         artifactId = 'bintray-release'
+         publishVersion = '1.5.0'
+         desc = 'Oh hi, this is a nice description for a project, right?'
+         website = 'https://github.com/novoda/bintray-release' // 一个与该项目网址相关的URL字符串。可以在这里使用Github 仓库。
+     //    uploadName = 'FirstTestRepository' // 早bintray包中显示的名称，不设置默认为artifactId
+     // https://brewfarmers.bintray.com/FirstTestRepository
+     }
 
+```
+  
+  其次需要特别注意Bintray账号选择注册个人开源账号。采用30天并未激活的企业账号时会出现一些上传失败的各种问题.所以特别提醒：
+  
+  ![这还能弄错吗？](https://github.com/hpuhsp/MyJNIDemo/tree/develop/Screenshots/702C0BF45444.png)
 
+> 关于上传本地AAR到JCenter可参考[博客文章](https://blog.csdn.net/u014620028/article/details/78406167),个人觉得这个真的是手把手教学。
+不清楚？再来一篇：[鸿洋的文章](https://blog.csdn.net/lmj623565791/article/details/51148825)
+> PS:关于一些资源合并、多版本AAR等问题可以参考他人文章，[AAR的那些坑](https://www.jianshu.com/p/8c7acd1e926f?from=timeline)
 ### JNI的拓展应用
 
     > 第三部分，期待

@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 // 配置上传AAR所有的远程依赖上传至本地Maven仓库
 apply plugin: 'maven'
+apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
+
 // 基本的配置
 android {
     // 注意：无论是打Jar还是生成AAR,都建议删除下面的版本号和版本名称
@@ -30,6 +32,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {
@@ -56,3 +63,29 @@ uploadArchives {
         }
     }
 }
+
+//  build.gradle 中使用Bintray提供的插件来编译，打包项目
+//apply from: 'bintray-config.gradle'
+//// 切记：以下代码必须放在 build.gradle 文件末尾
+//// 将本地项目编译，打包成 aar。并生成所需的 pom.xml 等文件
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+//// 将生成的这些文件都上传至你的 bintray 仓库中去
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+
+// 使用bintray-release 上传至bintray,下面为publish闭包配置
+publish {
+    userOrg = 'ternencehu' // bintray用户名
+    repoName = 'brewer'
+    groupId = 'com.sharepeng'
+    artifactId = 'bintray-release'
+    publishVersion = '1.5.0'
+    desc = 'Oh hi, this is a nice description for a project, right?'
+    website = 'https://github.com/novoda/bintray-release' // 一个与该项目网址相关的URL字符串。可以在这里使用Github 仓库。
+//    uploadName = 'FirstTestRepository' // 早bintray包中显示的名称，不设置默认为artifactId
+// https://brewfarmers.bintray.com/FirstTestRepository
+}
+
+//使用任务bintrayUpload发布（需要先编译项目！）: 针对个人开源库，实现在指定brewer下直接自动创建包为bintray-release
+// (包名可随意指定，下面命令会自动帮你创建好)的公开目录
+// c621ca75c9078b32ab2a21318b17521fe3293641
+//  ./gradlew clean build bintrayUpload -PbintrayUser=ternencehu -PbintrayKey=c621ca75c9078b32ab2a21318b17521fe3293641 -PdryRun=false
