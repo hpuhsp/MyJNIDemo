@@ -52,13 +52,13 @@ dependencies {
     implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
 }
 
-// 配置上传AAR所有的远程依赖上传至本地Maven仓库
+// 配置上传AAR所有的远程依赖上传至本地Maven仓库--运行./gradlew uploadArchives即可
 uploadArchives {
     repositories {
         mavenDeployer {
             pom.groupId = "com.aar.test" // Library包名
             pom.artifactId = "remote-dependcies-release" // Library名称
-            pom.version = "1.1.3" // Library 的版本号
+            pom.version = "1.1.4" // Library 的版本号
             repository(url: "file://localhost/" + "Users/reesehu/Library/Android/sdk" + "/extras/android/m2repository/")
         }
     }
@@ -77,8 +77,8 @@ publish {
     userOrg = 'ternencehu' // bintray用户名
     repoName = 'brewer'
     groupId = 'com.sharepeng'
-    artifactId = 'bintray-release'
-    publishVersion = '1.5.0'
+    artifactId = 'aarlibrary-release'
+    publishVersion = '1.0.0'
     desc = 'Oh hi, this is a nice description for a project, right?'
     website = 'https://github.com/novoda/bintray-release' // 一个与该项目网址相关的URL字符串。可以在这里使用Github 仓库。
 //    uploadName = 'FirstTestRepository' // 早bintray包中显示的名称，不设置默认为artifactId
@@ -86,6 +86,10 @@ publish {
 }
 
 //使用任务bintrayUpload发布（需要先编译项目！）: 针对个人开源库，实现在指定brewer下直接自动创建包为bintray-release
+// 使用时，gradle依赖路径就是： groupId:moduleName:publishVersion
 // (包名可随意指定，下面命令会自动帮你创建好)的公开目录
 // c621ca75c9078b32ab2a21318b17521fe3293641
 //  ./gradlew clean build bintrayUpload -PbintrayUser=ternencehu -PbintrayKey=c621ca75c9078b32ab2a21318b17521fe3293641 -PdryRun=false
+
+// 针对需要上传到JCenter时没有pom文件的需要分步操作实现上传，在README中已列出步骤
+// ./gradlew bintrayUpload -PbintrayUser=ternencehu -PbintrayKey=c621ca75c9078b32ab2a21318b17521fe3293641 -PdryRun=false

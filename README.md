@@ -97,6 +97,29 @@
 > 关于上传本地AAR到JCenter可参考[博客文章](https://blog.csdn.net/u014620028/article/details/78406167),个人觉得这个真的是手把手教学。
 不清楚？再来一篇：[鸿洋的文章](https://blog.csdn.net/lmj623565791/article/details/51148825)
 > PS:关于一些资源合并、多版本AAR等问题可以参考他人文章，[AAR的那些坑](https://www.jianshu.com/p/8c7acd1e926f?from=timeline)
+  
+  
+   [常见问题](https://www.jianshu.com/p/656e004fd7c4)示例：
+   
+   点击add To Jcenter 时候提示 Please fix the following before submitting a JCenter inclusion request:
+   Add a POM file to the latest version of your package.
+    
+   出现这个问题，如果你使用的是bintray-release这个插件，那么原因就在于官方以及大部分人说的这条命令：
+   gradlew clean build bintrayUpload -PbintrayUser=XXX -PbintrayKey=xxx -PdryRun=false ，
+   这条命令并没有给你生成pom.xml(配置文件)，但是官方说，当你执行这条命令的时候，bintrayUpload会默认生成，
+   很遗憾的是，我并没有在控制台中看到执行这个任务，于是我就手动执行，打开Gradle 任务栏，找到先别执行，按照下面的步骤去操作。
+  ![这还能弄错吗？](https://github.com/hpuhsp/MyJNIDemo/raw/master/Screenshots/52B1E16E9FF5.png)
+
+   然后，重点来了，重点来了，重点来了。步骤是：进入studio build菜单先clean ，后build，然后执行图中的
+   Task generatePomFileForMavenPublication 和 publishMavenPublicationToMavenLocal ,
+   执行完这些task后，大哥们千万不要在执行上面那条带clean和build的命令了，难道你不知道clean的作用吗
+   （刚生成pom，又被你clean 掉了.......而build 在命令行执行时候，难保一定会给你生成对应的jar）,正确的命令应该是：
+    
+    ```
+     ./gradlew bintrayUpload -PbintrayUser=xxx -PbintrayKey=xxx -PdryRun=false
+    ```
+
+ 
 ### JNI的拓展应用
 
     > 第三部分，期待
